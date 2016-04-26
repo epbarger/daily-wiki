@@ -22,7 +22,7 @@ end
 
 def set_articles
   redis = Redis.new(url: "redis://rediscloud:eqYBpy1EPatSySYK@pub-redis-17564.us-east-1-4.6.ec2.redislabs.com:17564")
-  @articles = redis.get(Date.today.to_s + '_v3')
+  @articles = redis.get(Date.today.to_s)
   if @articles
     @articles = YAML.load(@articles)
   else
@@ -38,7 +38,8 @@ def set_articles
       end 
     end
     threads.each(&:join)
-    redis.set(Date.today.to_s + '_v3', YAML.dump(@articles))
+    redis.set(Date.today.to_s, YAML.dump(@articles))
+    redis.expire(Date.today.to_s, 129600) # 36 hours
   end
 
   @articles = @articles.slice(0, NUMBER_OF_ARTICLES)

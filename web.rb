@@ -9,6 +9,7 @@ require 'yaml'
 require 'builder'
 
 NUMBER_OF_ARTICLES = 30
+REDIS_CONNECTION_STRING = 'redis://rediscloud:CkvFDQXH6tMFmNl9@pub-redis-12002.us-east-1-1.1.ec2.garantiadata.com:12002'
 
 get '/' do
   set_articles
@@ -21,7 +22,7 @@ get '/feed' do
 end
 
 def set_articles
-  redis = Redis.new(url: "redis://rediscloud:eqYBpy1EPatSySYK@pub-redis-17564.us-east-1-4.6.ec2.redislabs.com:17564")
+  redis = Redis.new(url: REDIS_CONNECTION_STRING)
   @articles = redis.get(Date.today.to_s)
   if @articles
     @articles = YAML.load(@articles)

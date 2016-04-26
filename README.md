@@ -1,4 +1,4 @@
-== DailyWiki
+### DailyWiki
 
 Currently hosted at https://gentle-tundra-91628.herokuapp.com/.
 

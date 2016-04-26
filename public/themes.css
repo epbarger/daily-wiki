@@ -1,0 +1,27 @@
+body.theme-inverse {
+  background-color: #111;
+  color: whitesmoke;
+}
+
+body.theme-inverse main a {
+  background-color:#323232;
+  color:whitesmoke;
+}
+
+body.theme-inverse .article-title, body.theme-inverse a{
+  color: #00aeff;
+}
+
+body.theme-inverse main a:hover {
+  background-color:#505050;
+}
+
+body.theme-inverse main a:visited, body.theme-inverse main a:visited > span {
+  background-color:#181818;
+  color: #606060;
+}
+
+.theme-select.theme-inverse {
+  background-color: #111;
+  border: 1px solid white;
+}

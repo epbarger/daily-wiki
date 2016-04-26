@@ -1,0 +1,91 @@
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 14px;
+  background-color: whitesmoke;
+}
+
+main {
+  margin-bottom: 15px;
+}
+
+header {
+  border-bottom: 1px solid black;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+}
+
+.container {
+  min-width: 700px;
+  width: 85%;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0px;
+  font-size: 15px;
+  display: inline-block;
+}
+
+a {
+  text-decoration: none;
+  color: #3864ff;
+}
+
+main a {
+  display: block;
+  background-color: white;
+  color: #444;
+  margin: 4px 0px;
+  padding: 3px 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+main a:visited {
+  background-color:whitesmoke;
+  color: lightgrey;
+}
+
+main a:visited > span {
+  color: lightgrey;
+}
+
+main a:hover {
+  background-color: #EEE;
+}
+
+.article-title {
+  font-weight: bold;
+  color: #3864ff;
+}
+
+.article-index {
+  font-size: 10px;
+  font-weight: bold;
+  width: 17px;
+  display: inline-block;
+}
+
+span.controls {
+  float:right;
+}
+
+span.theme-select {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.theme-select.theme-default {
+  background-color: white;
+  border: 1px solid black;
+}
+

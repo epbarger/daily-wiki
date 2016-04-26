@@ -1,12 +1,13 @@
 require 'sinatra'
-require 'haml'
-require 'tilt/haml' # supress some console warning
 require 'wikipedia'
 require 'thread'
 require 'redis'
 require 'date'
 require 'yaml'
+require 'haml'
 require 'builder'
+require 'tilt/haml' # suppress some console warning
+require 'tilt/builder' # suppress some some console warning
 
 NUMBER_OF_ARTICLES = 30
 REDIS_CONNECTION_STRING = 'redis://rediscloud:CkvFDQXH6tMFmNl9@pub-redis-12002.us-east-1-1.1.ec2.garantiadata.com:12002'
@@ -46,71 +47,16 @@ def set_articles
   @articles = @articles.slice(0, NUMBER_OF_ARTICLES)
 end
 
-def truncate(string, size)
-  length = string.length
-  output = string[0..size].rstrip
-  if length > size
+def truncate(string, max, min=max-15) # truncates on word boundary between max and min
+  cut_index = max
+  while string[cut_index] != ' ' && cut_index > min
+    cut_index -= 1
+  end
+
+  output = string[0..cut_index].rstrip
+  if string.length > cut_index
     output + '...'
   else
     output
-  end
-end
-
-__END__
-
-@@index 
-!!!
-%html
-  %head
-    %title DailyWiki - New random wikipedia articles every day
-    %link{ rel: 'stylesheet', media: 'screen', href: '/styles.css' }
-    %link{ rel: 'stylesheet', media: 'screen', href: '/themes.css' }
-    %script{ src: '/script.js' }
-    %link{ rel: "alternate", type: "application/rss+xml", title: "DailyWiki RSS", href: "/rss" }
-  %body
-    .container
-      %header
-        %h1 
-          DailyWiki
-          %small
-            %a{ href: '/feed', class: 'feed_link'} rss
-        %span.controls
-          %span.theme-select.theme-default
-          %span.theme-select.theme-inverse
-      %main
-        - @articles.each_with_index do |article, index|
-          %a{ href: article.fullurl, title: truncate(article.summary, 667) }
-            %span.article-index= index+1
-            %span.article-title=article.title
-            »
-            = truncate(article.summary, 300)
-    :javascript
-      var body = document.getElementsByTagName("body")[0];
-      body.className = localStorage.theme;
-
-      var inverseThemeBtn = document.querySelectorAll(".theme-select.theme-inverse")[0];
-      inverseThemeBtn.addEventListener("click", function (e){ body.className = 'theme-inverse'; localStorage.theme = 'theme-inverse'}, false);
-
-      var defaultThemeBtn = document.querySelectorAll(".theme-select.theme-default")[0];
-      defaultThemeBtn.addEventListener("click", function (e){ body.className = ''; localStorage.theme = ''}, false);
-
-@@feed
-xml.instruct! :xml, version: "1.0" 
-xml.rss version: "2.0" do
-  xml.channel do
-    xml.title "DailyWiki"
-    xml.description "New random wikipedia articles every day"
-    xml.link uri('/')
-    xml.language 'en-us'
-    xml.pubDate DateTime.parse(Date.today.to_s).to_s
-    xml.lastBuildDate DateTime.parse(Date.today.to_s).to_s
-
-    @articles.each do |article|
-      xml.item do
-        xml.title article.title
-        xml.link article.fullurl
-        xml.description truncate(article.summary, 667)
-      end
-    end
   end
 end

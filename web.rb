@@ -10,7 +10,7 @@ require 'tilt/haml' # suppress some console warning
 require 'tilt/builder' # suppress some some console warning
 
 NUMBER_OF_ARTICLES = 30
-REDIS_CONNECTION_STRING = 'redis://rediscloud:CkvFDQXH6tMFmNl9@pub-redis-12002.us-east-1-1.1.ec2.garantiadata.com:12002'
+REDIS_CONNECTION_STRING = ENV['REDISCLOUD_URL']
 
 get '/' do
   set_articles

@@ -33,7 +33,7 @@ def set_articles
     NUMBER_OF_ARTICLES.times do |i|
       threads << Thread.new do
         article = Wikipedia.find_random
-        while article.title.match(/list of/i) || (article.categories && article.categories.join.downcase.include?('disambiguation'))
+        while article.summary.nil? || article.title.match(/list of/i) || (article.categories && article.categories.join.downcase.include?('disambiguation'))
           article = Wikipedia.find_random
         end
         @articles << article

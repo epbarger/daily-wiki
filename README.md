@@ -1,6 +1,8 @@
 ### DailyWiki
 
-Currently hosted at https://gentle-tundra-91628.herokuapp.com/.
+Read a little more about this app on my website - http://epbarger.github.io/ruby/2016/04/24/dailywiki.html.
+
+Currently hosted at https://daily-wiki.herokuapp.com/.
 
 Extremely basic Sinatra app. Requires a redis connection, but otherwise does not use a database. 
 
